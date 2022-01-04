@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h1>Login in</h1>
+    <h1>this is the landing page</h1>
   </div>
 </template>
