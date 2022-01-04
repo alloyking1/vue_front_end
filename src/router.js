@@ -9,7 +9,8 @@ const router = new VueRouter({
     routes: [
         { path: '/', component: () => import('@/views/page/LandingPage.vue') },
         { path: '/login', component: () => import('@/views/auth/Login.vue') },
-        { path: '/register', component: () => import('@/views/auth/Register.vue') }
+        { path: '/register', component: () => import('@/views/auth/Register.vue') },
+        { path: '/account', component: () => import('@/views/auth/MyAccount.vue') }
     ]
 });
 

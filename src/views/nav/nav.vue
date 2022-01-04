@@ -24,6 +24,11 @@
                 >Register</router-link
               >
             </li>
+            <li class="nav-item">
+              <router-link to="/account" class="nav-link"
+                >My Account</router-link
+              >
+            </li>
           </ul>
         </div>
       </div>
