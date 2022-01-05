@@ -15,7 +15,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav" v-if="!isLoggedIn">
             <li class="nav-item">
               <router-link to="/login" class="nav-link">Login</router-link>
             </li>
@@ -24,10 +24,15 @@
                 >Register</router-link
               >
             </li>
+          </ul>
+          <ul class="navbar-nav" v-if="isLoggedIn">
             <li class="nav-item">
               <router-link to="/account" class="nav-link"
                 >My Account</router-link
               >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" @click="logOut">log out</a>
             </li>
           </ul>
         </div>
@@ -35,3 +40,29 @@
     </nav>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isLoggedIn: false,
+    };
+  },
+
+  created() {
+    if (this.$cookie.get("login")) {
+      this.isLoggedIn = true;
+    }
+  },
+
+  methods: {
+    logOut() {
+      this.$cookie.delete("login");
+      this.isLoggedIn = false;
+
+      console.log("this is when i got loaded");
+      this.$router.push("/login");
+    },
+  },
+};
+</script>

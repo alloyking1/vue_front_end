@@ -76,14 +76,31 @@ export default {
 
   methods: {
     validate() {
-      if (this.Form.email && this.Form.password) {
-        axios
-          .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-          .then((res) => console.log(res));
-        return;
-      }
       this.errors = [];
-      this.errors.push("all filds are required");
+      if (this.Form.email && this.Form.password) {
+        this.userLogin(this.Form);
+        this.$router.push("/account");
+      } else {
+        this.errors.push("all filds are required");
+      }
+    },
+
+    async userLogin(data) {
+      data = {
+        identifier: data.email,
+        password: data.password,
+      };
+
+      await axios
+        .post("http://localhost:1337/api/auth/local", data)
+        .then((res) => {
+          console.log(res);
+          // store user to state later usin re.data.user
+          this.$cookie.set("login", res.data.jwt, 1);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

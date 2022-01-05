@@ -11,6 +11,21 @@
               <form @submit.prevent="validate">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label"
+                    >User Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="userName"
+                    aria-describedby="Enter user name"
+                    v-model="form.userName"
+                  />
+                  <div id="emailHelp" class="form-text">
+                    We'll never share your email with anyone else.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
                     >Email address</label
                   >
                   <input
@@ -86,17 +101,43 @@ export default {
   methods: {
     validate() {
       this.errors = [];
-      if (this.form.email && this.form.password && this.form.confirmPassword) {
+      if (
+        this.form.email &&
+        this.form.password &&
+        this.form.userName &&
+        this.form.confirmPassword
+      ) {
         if (this.form.password === this.form.confirmPassword) {
-          axios
-            .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-            .then((res) => console.log(res));
+          this.userRegister(this.form);
         } else {
           this.errors.push("password do not match");
         }
       } else {
         this.errors.push("All fields are required");
       }
+    },
+
+    async userRegister(form) {
+      form = {
+        username: form.userName,
+        email: form.email,
+        password: form.password,
+      };
+
+      await axios
+        .post("http://localhost:1337/api/auth/local/register", form)
+        .then((res) => console.log(res))
+        .catch((error) => {
+          console.log(error);
+        });
+
+      // const article = { title: "Vue POST Request Example" };
+      // const headers = {
+      //   "Authorization": "Bearer my-token",
+      //   "My-Custom-Header": "foobar"
+      // };
+      // axios.post("https://reqres.in/api/articles", article, { headers })
+      //   .then(response => this.articleId = response.data.id);
     },
   },
 };
