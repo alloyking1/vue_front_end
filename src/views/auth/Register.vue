@@ -8,7 +8,7 @@
           <div class="card shadow">
             <div class="card-body">
               <!-- for starts here -->
-              <form>
+              <form @submit.prevent="validate">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label"
                     >Email address</label
@@ -18,6 +18,7 @@
                     class="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
+                    v-model="form.email"
                   />
                   <div id="emailHelp" class="form-text">
                     We'll never share your email with anyone else.
@@ -31,6 +32,7 @@
                     type="password"
                     class="form-control"
                     id="exampleInputPassword1"
+                    v-model="form.password"
                   />
                 </div>
                 <div class="mb-3">
@@ -41,6 +43,7 @@
                     type="password"
                     class="form-control"
                     id="exampleInputPassword1"
+                    v-model="form.confirmPassword"
                   />
                 </div>
                 <div class="mb-3 form-check">
@@ -54,6 +57,11 @@
                   >
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="danger" v-if="errors.length">
+                  <div v-for="error in errors" :key="error.key">
+                    {{ error }}
+                  </div>
+                </div>
               </form>
               <!-- for ends here -->
             </div>
@@ -64,3 +72,32 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      errors: [],
+      form: {},
+    };
+  },
+
+  methods: {
+    validate() {
+      this.errors = [];
+      if (this.form.email && this.form.password && this.form.confirmPassword) {
+        if (this.form.password === this.form.confirmPassword) {
+          axios
+            .get("https://api.coindesk.com/v1/bpi/currentprice.json")
+            .then((res) => console.log(res));
+        } else {
+          this.errors.push("password do not match");
+        }
+      } else {
+        this.errors.push("All fields are required");
+      }
+    },
+  },
+};
+</script>
