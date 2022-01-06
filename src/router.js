@@ -10,7 +10,7 @@ const router = new VueRouter({
         { path: '/', component: () => import('@/views/page/LandingPage.vue') },
         { path: '/login', component: () => import('@/views/auth/Login.vue') },
         { path: '/register', component: () => import('@/views/auth/Register.vue') },
-        { path: '/account', component: () => import('@/views/auth/MyAccount.vue') }
+        { path: '/account', component: () => import('@/views/auth/Merchant.vue') }
     ]
 });
 

@@ -79,6 +79,7 @@ export default {
       this.errors = [];
       if (this.Form.email && this.Form.password) {
         this.userLogin(this.Form);
+        // this.$router.go("/account");
         this.$router.push("/account");
       } else {
         this.errors.push("all filds are required");
@@ -94,9 +95,8 @@ export default {
       await axios
         .post("http://localhost:1337/api/auth/local", data)
         .then((res) => {
-          console.log(res);
-          // store user to state later usin re.data.user
           this.$cookie.set("login", res.data.jwt, 1);
+          this.$store.commit("addUser", res.data.user);
         })
         .catch((error) => {
           console.log(error);
