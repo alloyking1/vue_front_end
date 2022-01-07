@@ -80,7 +80,7 @@ export default {
       if (this.Form.email && this.Form.password) {
         this.userLogin(this.Form);
         // this.$router.go("/account");
-        this.$router.push("/account");
+        this.$router.push("/profile");
       } else {
         this.errors.push("all filds are required");
       }

@@ -27,9 +27,17 @@
           </ul>
           <ul class="navbar-nav" v-if="isLoggedIn">
             <li class="nav-item">
-              <router-link to="/account" class="nav-link"
-                >My Account</router-link
+              <router-link to="/merchant" class="nav-link"
+                >Add Merchant</router-link
               >
+            </li>
+            <li class="nav-item">
+              <router-link to="/merchant/search" class="nav-link"
+                >Search Merchant</router-link
+              >
+            </li>
+            <li class="nav-item">
+              <router-link to="/profile" class="nav-link">Profile</router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="logOut">log out</a>
