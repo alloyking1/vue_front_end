@@ -28,6 +28,9 @@
     </div>
 
     <div class="card shadow pt-5 mt-5 mb-5" v-if="showResult">
+      <div class="container">
+        <h2>Search result</h2>
+      </div>
       <div v-if="result.status == 404">
         <h1>No Merchant founf for zip code</h1>
       </div>
@@ -58,7 +61,41 @@
         </table>
       </div>
     </div>
+
+    <!-- should be a diff component -->
+    <div class="card shadow mt-5 mb-5" v-if="showResult == false">
+      <div class="container">
+        <h2>All Merchant list</h2>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Mercant ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Hours of operations</th>
+            <th scope="col">Country</th>
+            <th scope="col">Region</th>
+            <th scope="col">Phone Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(eachMerchant, i) in allResult" :key="i">
+            <th scope="row">{{ eachMerchant.id }}</th>
+            <td>{{ eachMerchant.attributes.Name }}</td>
+            <td>{{ eachMerchant.attributes.Address }}</td>
+            <td>{{ eachMerchant.attributes.Operation }}</td>
+            <td>{{ eachMerchant.attributes.Country }}</td>
+            <td>{{ eachMerchant.attributes.Region }}</td>
+            <td>{{ eachMerchant.attributes.Phone }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
+  <!-- </div>
+  </div> -->
 </template>
 
 <script>
@@ -68,9 +105,15 @@ export default {
     return {
       errors: [],
       showResult: false,
+      showAll: false,
+      allResult: {},
       result: {},
       searchInput: "",
     };
+  },
+
+  mounted() {
+    this.allMerchantCall();
   },
 
   methods: {
@@ -97,6 +140,22 @@ export default {
         .then((res) => {
           this.showResult = true;
           this.result = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    async allMerchantCall() {
+      const headers = {
+        Authorization: `Bearer ${this.$cookie.get("login")}`,
+      };
+
+      await axios
+        .get("http://localhost:1337/api/merchants", { headers })
+        .then((res) => {
+          this.showAll = true;
+          this.allResult = res.data.data;
         })
         .catch((error) => {
           console.log(error);
