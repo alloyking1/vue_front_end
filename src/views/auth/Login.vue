@@ -75,12 +75,10 @@ export default {
   },
 
   methods: {
-    validate() {
+    async validate() {
       this.errors = [];
       if (this.Form.email && this.Form.password) {
-        this.userLogin(this.Form);
-        // this.$router.go("/account");
-        this.$router.push("/profile");
+        await this.userLogin(this.Form);
       } else {
         this.errors.push("all filds are required");
       }
@@ -97,8 +95,14 @@ export default {
         .then((res) => {
           this.$cookie.set("login", res.data.jwt, 1);
           this.$store.commit("addUser", res.data.user);
+          // window.location.reload();
+          this.$router.push("/profile");
         })
         .catch((error) => {
+          if (error) {
+            this.errors.push("Invalid login details");
+            return;
+          }
           console.log(error);
         });
     },

@@ -126,18 +126,14 @@ export default {
 
       await axios
         .post("http://localhost:1337/api/auth/local/register", form)
-        .then((res) => console.log(res))
+        .then((res) => {
+          this.$cookie.set("login", res.data.jwt, 1);
+          this.$store.commit("addUser", res.data.user);
+          this.$router.push("/profile");
+        })
         .catch((error) => {
           console.log(error);
         });
-
-      // const article = { title: "Vue POST Request Example" };
-      // const headers = {
-      //   "Authorization": "Bearer my-token",
-      //   "My-Custom-Header": "foobar"
-      // };
-      // axios.post("https://reqres.in/api/articles", article, { headers })
-      //   .then(response => this.articleId = response.data.id);
     },
   },
 };

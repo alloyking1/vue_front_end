@@ -66,9 +66,9 @@ export default {
   methods: {
     logOut() {
       this.$cookie.delete("login");
+      //clear state
       this.isLoggedIn = false;
 
-      console.log("this is when i got loaded");
       this.$router.push("/login");
     },
   },
