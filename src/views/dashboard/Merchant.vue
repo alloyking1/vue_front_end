@@ -162,7 +162,7 @@ export default {
   methods: {
     validate() {
       // validate later
-      this.data.user = this.$store.state.user.id;
+      this.data.users_permissions_user = this.$store.state.user.id;
       this.createMerchant(this.data);
     },
 

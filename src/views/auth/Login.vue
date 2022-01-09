@@ -8,7 +8,7 @@
           <div class="card shadow">
             <div class="card-body">
               <!-- for starts here -->
-              <form @submit="validate">
+              <form @submit.prevent="validate">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label"
                     >Email address</label
