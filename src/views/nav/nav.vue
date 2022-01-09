@@ -15,7 +15,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav" v-if="!isLoggedIn">
+          <ul class="navbar-nav" v-if="!loginCheck">
             <li class="nav-item">
               <router-link to="/login" class="nav-link">Login</router-link>
             </li>
@@ -25,7 +25,7 @@
               >
             </li>
           </ul>
-          <ul class="navbar-nav" v-if="isLoggedIn">
+          <ul class="navbar-nav" v-if="loginCheck">
             <li class="nav-item">
               <router-link to="/merchant" class="nav-link"
                 >Add Merchant</router-link
@@ -51,23 +51,18 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isLoggedIn: false,
-    };
-  },
-
-  created() {
-    if (this.$cookie.get("login")) {
-      this.isLoggedIn = true;
-    }
+  computed: {
+    loginCheck() {
+      return this.$store.state.isLoggedIn;
+    },
   },
 
   methods: {
     logOut() {
       this.$cookie.delete("login");
-      //clear state
-      this.isLoggedIn = false;
+      this.$store.replaceState({});
+      this.$store.commit("isLoggedInMutation", false);
+      console.log(this.loginCheck);
 
       this.$router.push("/login");
     },

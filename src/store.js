@@ -6,11 +6,16 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        user: {}
+        user: {},
+        isLoggedIn: false
     },
     mutations: {
         addUser(state, user) {
             state.user = user
+        },
+        isLoggedInMutation(state, status) {
+            state.isLoggedIn = status
+            console.log(status)
         }
     },
     plugins: [createPersistedState()]

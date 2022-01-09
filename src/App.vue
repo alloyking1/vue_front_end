@@ -25,8 +25,8 @@ export default {
   mounted() {
     if (this.$cookie.get("login")) {
       this.status = true;
-      this.componentKey += 1;
     }
+    this.componentKey += 1;
   },
 };
 </script>

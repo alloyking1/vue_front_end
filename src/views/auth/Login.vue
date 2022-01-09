@@ -8,7 +8,7 @@
           <div class="card shadow">
             <div class="card-body">
               <!-- for starts here -->
-              <form @submit.prevent="validate">
+              <form @submit="validate">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label"
                     >Email address</label
@@ -95,7 +95,7 @@ export default {
         .then((res) => {
           this.$cookie.set("login", res.data.jwt, 1);
           this.$store.commit("addUser", res.data.user);
-          // window.location.reload();
+          this.$store.commit("isLoggedInMutation", true);
           this.$router.push("/profile");
         })
         .catch((error) => {
