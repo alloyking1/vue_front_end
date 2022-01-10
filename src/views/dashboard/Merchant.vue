@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-7">
-          <h1 class="text-center">Create Merchant Account</h1>
+          <h1 class="text-center">Update Merchant Account</h1>
           <div class="card shadow">
             <div class="card-body">
               <!-- for starts here -->
@@ -131,12 +131,22 @@
                     v-model="data.Zipcode"
                   />
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label"
                     >Image</label
                   >
                   <input type="file" class="form-control" id="exampleCheck1" />
+                </div> -->
+                <div class="custom-control custom-switch pt-3 pb-3">
+                  <input type="checkbox" id="checkbox" v-model="checked" />
+                  <div v-if="checked">
+                    <label for="checkbox">{{ "Publish content" }}</label>
+                  </div>
+                  <div v-if="!checked">
+                    <label for="checkbox">{{ "Set as draft" }}</label>
+                  </div>
                 </div>
+
                 <button class="btn btn-primary">Submit</button>
               </form>
               <!-- for ends here -->
@@ -156,29 +166,56 @@ export default {
     return {
       error: [],
       data: {},
+      checked: null,
     };
+  },
+
+  mounted() {
+    console.log(this.$store.state);
+    const headers = {
+      Authorization: `Bearer ${this.$cookie.get("login")}`,
+    };
+
+    axios
+      .get(
+        `http://localhost:1337/api/merchants/${this.$store.state.user.m_id}`,
+        { headers }
+      )
+      .then((res) => {
+        this.data = res.data.data.attributes;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   methods: {
     validate() {
       // validate later
       this.data.users_permissions_user = this.$store.state.user.id;
-      this.createMerchant(this.data);
+      if (this.checked === true) {
+        this.data.publishedAt = new Date(2018, 11, 24, 10, 33);
+      } else {
+        this.data.publishedAt = null;
+      }
+      // this.checkBox();
+      this.updateMerchant(this.data);
     },
 
-    async createMerchant(data) {
+    async updateMerchant(data) {
       const headers = {
         Authorization: `Bearer ${this.$cookie.get("login")}`,
       };
 
       await axios
-        .post(
-          "http://localhost:1337/api/merchants",
+        .put(
+          `http://localhost:1337/api/merchants/${this.$store.state.user.m_id}`,
           { data: data },
           { headers }
         )
         .then((res) => {
-          console.log(res);
+          this.data = res.data.data.attributes;
+          console.log(this.data);
         })
         .catch((error) => {
           console.log(error);
@@ -187,3 +224,4 @@ export default {
   },
 };
 </script>
+

@@ -7,7 +7,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         user: {},
-        isLoggedIn: false
+        isLoggedIn: true,
+        merchant_id: ''
     },
     mutations: {
         addUser(state, user) {
@@ -16,6 +17,9 @@ const store = new Vuex.Store({
         isLoggedInMutation(state, status) {
             state.isLoggedIn = status
             console.log(status)
+        },
+        updateMerchantId(state, id) {
+            state.user.m_id = id
         }
     },
     plugins: [createPersistedState()]

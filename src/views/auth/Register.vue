@@ -129,7 +129,45 @@ export default {
         .then((res) => {
           this.$cookie.set("login", res.data.jwt, 1);
           this.$store.commit("addUser", res.data.user);
-          this.$router.push("/profile");
+          this.$store.commit("isLoggedInMutation", true);
+          this.createMerchant(form); //create merchant
+          this.$router.push("/merchant");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    async createMerchant(data) {
+      data = {
+        Email: data.email,
+        users_permissions_user: this.$store.state.user.id,
+      };
+      const headers = {
+        Authorization: `Bearer ${this.$cookie.get("login")}`,
+      };
+
+      await axios
+        .post(
+          "http://localhost:1337/api/merchants",
+          { data: data },
+          { headers }
+        )
+        .then(async (res) => {
+          console.log(res.data.data.id);
+          this.$store.commit("updateMerchantId", res.data.data.id);
+          await axios
+            .put(
+              `http://localhost:1337/api/users/${this.$store.state.user.id}`,
+              { m_id: res.data.data.id },
+              { headers }
+            )
+            .then((res) => {
+              console.log(res + "merchant updated");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
           console.log(error);

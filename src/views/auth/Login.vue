@@ -96,7 +96,7 @@ export default {
           this.$cookie.set("login", res.data.jwt, 1);
           this.$store.commit("addUser", res.data.user);
           this.$store.commit("isLoggedInMutation", true);
-          this.$router.push("/profile");
+          this.$router.push("/merchant");
         })
         .catch((error) => {
           if (error) {

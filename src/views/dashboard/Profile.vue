@@ -51,13 +51,25 @@ export default {
 
   methods: {
     validate() {
+      const headers = {
+        Authorization: `Bearer ${this.$cookie.get("login")}`,
+      };
+      const test = axios
+        .get(`http://localhost:1337/api/users/me?populate=*`, {
+          headers,
+        })
+        .then((res) => {
+          res;
+        });
+      console.log(test);
+
       if (this.email === "") {
         this.errors.push("Email field cannot be empty");
         return false;
       }
-      const id = this.$store.state.user.id;
+      // const id = this.$store.state.user.id;
       //   const id = 3;
-      this.updateUser(this.email, id);
+      // this.updateUser(this.email, id);
     },
     async updateUser(data, id) {
       const headers = {
