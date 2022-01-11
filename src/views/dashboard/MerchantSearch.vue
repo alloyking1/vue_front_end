@@ -39,23 +39,25 @@
           <thead>
             <tr>
               <th scope="col">Mercant ID</th>
-              <th scope="col">Name</th>
+              <th scope="col">Email</th>
               <th scope="col">Address</th>
               <th scope="col">Hours of operations</th>
               <th scope="col">Country</th>
               <th scope="col">Region</th>
               <th scope="col">Phone Number</th>
+              <th scope="col">created at</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(each, i) in result.data" :key="i">
               <th scope="row">{{ each.id }}</th>
-              <td>{{ each.Name }}</td>
+              <td>{{ each.Email }}</td>
               <td>{{ each.Address }}</td>
               <td>{{ each.Operation }}</td>
               <td>{{ each.Country }}</td>
               <td>{{ each.Region }}</td>
               <td>{{ each.Phone }}</td>
+              <td>{{ each.createdAt }}</td>
             </tr>
           </tbody>
         </table>
@@ -71,23 +73,25 @@
         <thead>
           <tr>
             <th scope="col">Mercant ID</th>
-            <th scope="col">Name</th>
+            <th scope="col">Email</th>
             <th scope="col">Address</th>
             <th scope="col">Hours of operations</th>
             <th scope="col">Country</th>
             <th scope="col">Region</th>
             <th scope="col">Phone Number</th>
+            <th scope="col">Joined date</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(eachMerchant, i) in allResult" :key="i">
             <th scope="row">{{ eachMerchant.id }}</th>
-            <td>{{ eachMerchant.attributes.Name }}</td>
+            <td>{{ eachMerchant.attributes.Email }}</td>
             <td>{{ eachMerchant.attributes.Address }}</td>
             <td>{{ eachMerchant.attributes.Operation }}</td>
             <td>{{ eachMerchant.attributes.Country }}</td>
             <td>{{ eachMerchant.attributes.Region }}</td>
             <td>{{ eachMerchant.attributes.Phone }}</td>
+            <td>{{ eachMerchant.attributes.createdAt }}</td>
           </tr>
         </tbody>
       </table>

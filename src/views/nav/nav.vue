@@ -28,7 +28,7 @@
           <ul class="navbar-nav" v-if="loginCheck">
             <li class="nav-item">
               <router-link to="/merchant" class="nav-link"
-                >Add Merchant</router-link
+                >Update Merchant</router-link
               >
             </li>
             <li class="nav-item">
