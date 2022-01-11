@@ -4,6 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 
 import authRepository from './api/authRepository';
 import merchantRepository from './api/merchantRepository'
+import profileRepository from './api/profileRepository';
 
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie);
@@ -68,7 +69,6 @@ const store = new Vuex.Store({
 
         async createNewMerchantAction(context, data) {
             const res = await merchantRepository.createNewMerchantApiCall(data)
-            console.log(res.data)
             context.commit("updateMerchantId", res.data.data.id)
             context.dispatch("updateUserMidAction", { m_id: res.data.data.id })
         },
@@ -77,6 +77,24 @@ const store = new Vuex.Store({
             return await authRepository.userMidUpdateApiCall(context.state.user.id, data)
         },
 
+        async getMerchantByIdAction({ state }) {
+            return await merchantRepository.getMerchantByIdApiCall(state.user.m_id)
+        },
+
+        async updateMerchantByIdAction(context, data) {
+            return await merchantRepository.updateMerchantByIdApiCall(context.state.user.m_id, data)
+        },
+
+        async getAllMerchantAction() {
+            return await merchantRepository.getAllMerchantApiCall()
+        },
+        async searchMerchantAction(context, data) {
+            return await merchantRepository.searchMerchantApiCall(data)
+        },
+
+        async updateUserProfileByIdAction(context, data) {
+            return await profileRepository.updateUserProfileById(data, context.state.user.id)
+        }
     },
 
     plugins: [createPersistedState()]

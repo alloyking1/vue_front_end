@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -116,54 +115,35 @@ export default {
     };
   },
 
-  mounted() {
-    this.allMerchantCall();
+  async mounted() {
+    await this.fetchAllMerchantCall();
   },
 
   methods: {
     async search() {
       if (!this.searchInput) {
-        this.errors.push("search field is empty");
+        this.errors.push("Enter a zipcode to search");
         return;
       }
       await this.searchCall(this.searchInput);
-      console.log(this.result.status);
     },
 
     async searchCall(data) {
-      const headers = {
-        Authorization: `Bearer ${this.$cookie.get("login")}`,
-      };
-
-      await axios
-        .post(
-          "http://localhost:1337/api/search/merchant",
-          { data: data },
-          { headers }
-        )
-        .then((res) => {
-          this.showResult = true;
-          this.result = res.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const res = await this.$store.dispatch("searchMerchantAction", {
+        data: data,
+      });
+      this.result = res.data;
+      this.showResult = true;
     },
 
-    async allMerchantCall() {
-      const headers = {
-        Authorization: `Bearer ${this.$cookie.get("login")}`,
-      };
-
-      await axios
-        .get("http://localhost:1337/api/merchants", { headers })
-        .then((res) => {
-          this.showAll = true;
-          this.allResult = res.data.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    async fetchAllMerchantCall() {
+      try {
+        const res = await this.$store.dispatch("getAllMerchantAction");
+        this.allResult = res.data.data;
+        this.showAll = true;
+      } catch (error) {
+        this.errors.push(error.message);
+      }
     },
   },
 };

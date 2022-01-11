@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -70,27 +69,15 @@ export default {
         this.errors.push("Email field cannot be empty");
         return false;
       }
-      const id = this.$store.state.user.id;
-      this.updateUser(this.email, id);
-    },
-    async updateUser(data, id) {
-      const headers = {
-        Authorization: `Bearer ${this.$cookie.get("login")}`,
-      };
 
-      await axios
-        .put(
-          `http://localhost:1337/api/users/${id}`,
-          { email: data },
-          { headers }
-        )
-        .then((res) => {
-          console.log(res);
-          this.success = true;
-        })
-        .catch((error) => {
-          console.log(error);
+      try {
+        this.$store.dispatch("updateUserProfileByIdAction", {
+          email: this.email,
         });
+        this.success = true;
+      } catch (error) {
+        this.errors.push(error.message);
+      }
     },
   },
 };

@@ -169,7 +169,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -180,23 +179,9 @@ export default {
     };
   },
 
-  mounted() {
-    console.log(this.$store.state);
-    const headers = {
-      Authorization: `Bearer ${this.$cookie.get("login")}`,
-    };
-
-    axios
-      .get(
-        `http://localhost:1337/api/merchants/${this.$store.state.user.m_id}`,
-        { headers }
-      )
-      .then((res) => {
-        this.data = res.data.data.attributes;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async mounted() {
+    const res = await this.$store.dispatch("getMerchantByIdAction");
+    this.data = res.data.data.attributes;
   },
 
   methods: {
@@ -211,24 +196,14 @@ export default {
     },
 
     async updateMerchant(data) {
-      const headers = {
-        Authorization: `Bearer ${this.$cookie.get("login")}`,
-      };
-
-      await axios
-        .put(
-          `http://localhost:1337/api/merchants/${this.$store.state.user.m_id}`,
-          { data: data },
-          { headers }
-        )
-        .then((res) => {
-          this.data = res.data.data.attributes;
-          console.log(this.data);
-          this.success = true;
-        })
-        .catch((error) => {
-          console.log(error);
+      try {
+        const res = await this.$store.dispatch("updateMerchantByIdAction", {
+          data: data,
         });
+        this.data = res.data.data.attributes;
+      } catch (error) {
+        this.errors.push(error.message);
+      }
     },
   },
 };
