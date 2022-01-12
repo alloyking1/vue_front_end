@@ -32,7 +32,9 @@
         <h2>Search result</h2>
       </div>
       <div v-if="result.status == 404">
-        <h1>No Merchant founf for zip code</h1>
+        <div class="container">
+          <h1>No Merchant found for zip code</h1>
+        </div>
       </div>
       <div v-else>
         <table class="table table-striped">
