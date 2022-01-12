@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <router-link to="/" class="nav-link">Logo</router-link>
+        <router-link to="/" class="nav-link">Home</router-link>
         <button
           class="navbar-toggler"
           type="button"

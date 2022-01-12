@@ -8,6 +8,7 @@
         <form @submit.prevent="search">
           <div class="form-group">
             <input
+              @keyup="search"
               type="number"
               class="form-control"
               aria-describedby="emailHelp"
@@ -27,7 +28,7 @@
       </div>
     </div>
 
-    <div class="card shadow pt-5 mt-5 mb-5" v-if="showResult">
+    <div class="card shadow pt-5 mt-5 mb-5" v-if="searchInput != ''">
       <div class="container">
         <h2>Search result</h2>
       </div>
@@ -67,7 +68,7 @@
     </div>
 
     <!-- should be a diff component -->
-    <div class="card shadow mt-5 mb-5" v-if="showResult == false">
+    <div class="card shadow mt-5 mb-5" v-if="searchInput == ''">
       <div class="container">
         <h2>All Merchant list</h2>
       </div>
@@ -99,9 +100,6 @@
       </table>
     </div>
   </div>
-
-  <!-- </div>
-  </div> -->
 </template>
 
 <script>
@@ -109,8 +107,6 @@ export default {
   data() {
     return {
       errors: [],
-      showResult: false,
-      showAll: false,
       allResult: {},
       result: {},
       searchInput: "",
@@ -131,18 +127,20 @@ export default {
     },
 
     async searchCall(data) {
-      const res = await this.$store.dispatch("searchMerchantAction", {
-        data: data,
-      });
-      this.result = res.data;
-      this.showResult = true;
+      try {
+        const res = await this.$store.dispatch("searchMerchantAction", {
+          data: data,
+        });
+        this.result = res.data;
+      } catch (error) {
+        this.errors.push(error.message);
+      }
     },
 
     async fetchAllMerchantCall() {
       try {
         const res = await this.$store.dispatch("getAllMerchantAction");
         this.allResult = res.data.data;
-        this.showAll = true;
       } catch (error) {
         this.errors.push(error.message);
       }
