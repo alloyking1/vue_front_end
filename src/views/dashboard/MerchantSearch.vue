@@ -32,30 +32,34 @@
         <h2>Search result</h2>
       </div>
       <div v-if="result.status == 404">
-        <h1>No Merchant founf for zip code</h1>
+        <div class="container">
+          <h1>No Merchant found for zip code</h1>
+        </div>
       </div>
       <div v-else>
         <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">Mercant ID</th>
-              <th scope="col">Name</th>
+              <th scope="col">Email</th>
               <th scope="col">Address</th>
               <th scope="col">Hours of operations</th>
               <th scope="col">Country</th>
               <th scope="col">Region</th>
               <th scope="col">Phone Number</th>
+              <th scope="col">created at</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(each, i) in result.data" :key="i">
               <th scope="row">{{ each.id }}</th>
-              <td>{{ each.Name }}</td>
+              <td>{{ each.Email }}</td>
               <td>{{ each.Address }}</td>
               <td>{{ each.Operation }}</td>
               <td>{{ each.Country }}</td>
               <td>{{ each.Region }}</td>
               <td>{{ each.Phone }}</td>
+              <td>{{ each.createdAt }}</td>
             </tr>
           </tbody>
         </table>
@@ -71,23 +75,25 @@
         <thead>
           <tr>
             <th scope="col">Mercant ID</th>
-            <th scope="col">Name</th>
+            <th scope="col">Email</th>
             <th scope="col">Address</th>
             <th scope="col">Hours of operations</th>
             <th scope="col">Country</th>
             <th scope="col">Region</th>
             <th scope="col">Phone Number</th>
+            <th scope="col">Joined date</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(eachMerchant, i) in allResult" :key="i">
             <th scope="row">{{ eachMerchant.id }}</th>
-            <td>{{ eachMerchant.attributes.Name }}</td>
+            <td>{{ eachMerchant.attributes.Email }}</td>
             <td>{{ eachMerchant.attributes.Address }}</td>
             <td>{{ eachMerchant.attributes.Operation }}</td>
             <td>{{ eachMerchant.attributes.Country }}</td>
             <td>{{ eachMerchant.attributes.Region }}</td>
             <td>{{ eachMerchant.attributes.Phone }}</td>
+            <td>{{ eachMerchant.attributes.createdAt }}</td>
           </tr>
         </tbody>
       </table>
@@ -99,7 +105,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -112,54 +117,35 @@ export default {
     };
   },
 
-  mounted() {
-    this.allMerchantCall();
+  async mounted() {
+    await this.fetchAllMerchantCall();
   },
 
   methods: {
     async search() {
       if (!this.searchInput) {
-        this.errors.push("search field is empty");
+        this.errors.push("Enter a zipcode to search");
         return;
       }
       await this.searchCall(this.searchInput);
-      console.log(this.result.status);
     },
 
     async searchCall(data) {
-      const headers = {
-        Authorization: `Bearer ${this.$cookie.get("login")}`,
-      };
-
-      await axios
-        .post(
-          "http://localhost:1337/api/search/merchant",
-          { data: data },
-          { headers }
-        )
-        .then((res) => {
-          this.showResult = true;
-          this.result = res.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const res = await this.$store.dispatch("searchMerchantAction", {
+        data: data,
+      });
+      this.result = res.data;
+      this.showResult = true;
     },
 
-    async allMerchantCall() {
-      const headers = {
-        Authorization: `Bearer ${this.$cookie.get("login")}`,
-      };
-
-      await axios
-        .get("http://localhost:1337/api/merchants", { headers })
-        .then((res) => {
-          this.showAll = true;
-          this.allResult = res.data.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    async fetchAllMerchantCall() {
+      try {
+        const res = await this.$store.dispatch("getAllMerchantAction");
+        this.allResult = res.data.data;
+        this.showAll = true;
+      } catch (error) {
+        this.errors.push(error.message);
+      }
     },
   },
 };

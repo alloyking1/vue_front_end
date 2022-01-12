@@ -64,8 +64,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -90,21 +88,13 @@ export default {
         password: data.password,
       };
 
-      await axios
-        .post("http://localhost:1337/api/auth/local", data)
-        .then((res) => {
-          this.$cookie.set("login", res.data.jwt, 1);
-          this.$store.commit("addUser", res.data.user);
-          this.$store.commit("isLoggedInMutation", true);
-          this.$router.push("/merchant");
-        })
-        .catch((error) => {
-          if (error) {
-            this.errors.push("Invalid login details");
-            return;
-          }
-          console.log(error);
-        });
+      try {
+        const apiCall = await this.$store.dispatch("userLoginAction", data);
+        this.$cookie.set("login", apiCall.data.jwt, 1);
+        this.$router.push("/merchant");
+      } catch (error) {
+        this.errors.push("Invalid login details");
+      }
     },
   },
 };

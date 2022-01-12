@@ -28,14 +28,14 @@
           <ul class="navbar-nav" v-if="loginCheck">
             <li class="nav-item">
               <router-link to="/merchant" class="nav-link"
-                >Add Merchant</router-link
+                >Update Merchant</router-link
               >
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link to="/merchant/search" class="nav-link"
                 >Search Merchant</router-link
               >
-            </li>
+            </li> -->
             <li class="nav-item">
               <router-link to="/profile" class="nav-link">Profile</router-link>
             </li>
@@ -62,7 +62,6 @@ export default {
       this.$cookie.delete("login");
       this.$store.replaceState({});
       this.$store.commit("isLoggedInMutation", false);
-      console.log(this.loginCheck);
 
       this.$router.push("/login");
     },
