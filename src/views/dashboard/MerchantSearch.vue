@@ -5,26 +5,19 @@
         <h1>Search Merchant using Zip Code</h1>
       </div>
       <div class="p-5">
-        <form @submit.prevent="search">
-          <div class="form-group">
-            <input
-              @keyup="search"
-              type="number"
-              class="form-control"
-              aria-describedby="emailHelp"
-              v-model="searchInput"
-            />
-          </div>
-          <div class="form-group pt-5">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">
-              Search
-            </button>
-          </div>
+        <div class="form-group">
+          <input
+            @keyup="search"
+            type="number"
+            class="form-control"
+            aria-describedby="emailHelp"
+            v-model="searchInput"
+          />
+        </div>
 
-          <div v-for="(error, i) in errors" :key="i">
-            {{ error }}
-          </div>
-        </form>
+        <div class="mt-2" v-for="(error, i) in errors" :key="i">
+          {{ error }}
+        </div>
       </div>
     </div>
 
@@ -44,7 +37,9 @@
               <th scope="col">Mercant ID</th>
               <th scope="col">Email</th>
               <th scope="col">Address</th>
-              <th scope="col">Hours of operations</th>
+              <th scope="col">Days of operations</th>
+              <th scope="col">Start time</th>
+              <th scope="col">Close time</th>
               <th scope="col">Country</th>
               <th scope="col">Region</th>
               <th scope="col">Phone Number</th>
@@ -57,6 +52,8 @@
               <td>{{ each.Email }}</td>
               <td>{{ each.Address }}</td>
               <td>{{ each.Operation }}</td>
+              <td>{{ each.OperationStartTime }}</td>
+              <td>{{ each.OperationEndTime }}</td>
               <td>{{ each.Country }}</td>
               <td>{{ each.Region }}</td>
               <td>{{ each.Phone }}</td>
@@ -78,7 +75,9 @@
             <th scope="col">Mercant ID</th>
             <th scope="col">Email</th>
             <th scope="col">Address</th>
-            <th scope="col">Hours of operations</th>
+            <th scope="col">Days of operations</th>
+            <th scope="col">Start time</th>
+            <th scope="col">Close time</th>
             <th scope="col">Country</th>
             <th scope="col">Region</th>
             <th scope="col">Phone Number</th>
@@ -91,6 +90,8 @@
             <td>{{ eachMerchant.attributes.Email }}</td>
             <td>{{ eachMerchant.attributes.Address }}</td>
             <td>{{ eachMerchant.attributes.Operation }}</td>
+            <td>{{ eachMerchant.attributes.OperationStartTime }}</td>
+            <td>{{ eachMerchant.attributes.OperationEndTime }}</td>
             <td>{{ eachMerchant.attributes.Country }}</td>
             <td>{{ eachMerchant.attributes.Region }}</td>
             <td>{{ eachMerchant.attributes.Phone }}</td>

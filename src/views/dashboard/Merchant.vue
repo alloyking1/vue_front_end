@@ -24,13 +24,35 @@
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label"
-                    >Hours of operations: Monday through Sunday</label
+                    >Days of operation: Monday through Sunday</label
                   >
                   <input
                     type="text"
                     class="form-control"
                     id="exampleInputPassword1"
                     v-model="data.Operation"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >Hours of operation: Start time</label
+                  >
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="exampleInputPassword1"
+                    v-model="data.OperationStartTime"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >Hours of operation: End time</label
+                  >
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="exampleInputPassword1"
+                    v-model="data.OperationEndTime"
                   />
                 </div>
                 <div class="mb-3">
