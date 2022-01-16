@@ -69,12 +69,15 @@ const store = new Vuex.Store({
 
         async createNewMerchantAction(context, data) {
             const res = await merchantRepository.createNewMerchantApiCall(data)
-            context.commit("updateMerchantId", res.data.data.id)
-            context.dispatch("updateUserMidAction", { m_id: res.data.data.id })
+            await context.dispatch("updateUserMidAction", { m_id: res.data.data.id })
+            await context.commit("updateMerchantId", res.data.data.id)
+
+
         },
 
         async updateUserMidAction(context, data) {
             return await authRepository.userMidUpdateApiCall(context.state.user.id, data)
+
         },
 
         async getMerchantByIdAction({ state }) {

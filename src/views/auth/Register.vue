@@ -16,11 +16,10 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="userName"
                     aria-describedby="Enter user name"
                     v-model="form.userName"
                   />
-                  <div id="emailHelp" class="form-text">
+                  <div class="form-text">
                     We'll never share your email with anyone else.
                   </div>
                 </div>
@@ -35,7 +34,7 @@
                     aria-describedby="emailHelp"
                     v-model="form.email"
                   />
-                  <div id="emailHelp" class="form-text">
+                  <div class="form-text">
                     We'll never share your email with anyone else.
                   </div>
                 </div>
@@ -46,7 +45,6 @@
                   <input
                     type="password"
                     class="form-control"
-                    id="exampleInputPassword1"
                     v-model="form.password"
                   />
                 </div>
@@ -57,16 +55,11 @@
                   <input
                     type="password"
                     class="form-control"
-                    id="exampleInputPassword1"
                     v-model="form.confirmPassword"
                   />
                 </div>
                 <div class="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
+                  <input type="checkbox" class="form-check-input" />
                   <label class="form-check-label" for="exampleCheck1"
                     >Check me out</label
                   >
@@ -124,7 +117,8 @@ export default {
       };
 
       try {
-        await this.$store.dispatch("userRegisterAction", form);
+        const res = await this.$store.dispatch("userRegisterAction", form);
+        console.log(res);
         this.$router.push("/merchant");
       } catch (error) {
         this.errors.push(error.message);
