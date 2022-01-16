@@ -13,7 +13,9 @@ const router = new VueRouter({
         { path: '/login', component: () => import('@/views/auth/Login.vue') },
         { path: '/register', component: () => import('@/views/auth/Register.vue') },
         { path: '/merchant', component: () => import('@/views/dashboard/Merchant.vue') },
-        { path: '/profile', component: () => import('@/views/dashboard/Profile.vue') }
+        { path: '/profile', component: () => import('@/views/dashboard/Profile.vue') },
+        { path: '/password/update', component: () => import('@/views/auth/PasswordUpdate.vue') },
+        { path: '/password/reset', component: () => import('@/views/auth/passwordReset.vue') }
     ]
 });
 

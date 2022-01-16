@@ -15,5 +15,12 @@ export default {
 
     async userMidUpdateApiCall(userId, data) {
         return await httpClient.put(`/users/${userId}`, data)
+    },
+    async passwordUpdateRequest(data) {
+        return await httpClient.post('/auth/forgot-password', data)
+    },
+
+    async passwordResetRequest(data) {
+        return await httpClient.post('/auth/reset-password', data);
     }
 }

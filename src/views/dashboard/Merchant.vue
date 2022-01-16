@@ -17,7 +17,6 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="merchangName"
                     aria-describedby="emailHelp"
                     v-model="data.Name"
                   />
@@ -29,7 +28,6 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleInputPassword1"
                     v-model="data.Operation"
                   />
                 </div>
@@ -40,7 +38,6 @@
                   <input
                     type="time"
                     class="form-control"
-                    id="exampleInputPassword1"
                     v-model="data.OperationStartTime"
                   />
                 </div>
@@ -51,7 +48,6 @@
                   <input
                     type="time"
                     class="form-control"
-                    id="exampleInputPassword1"
                     v-model="data.OperationEndTime"
                   />
                 </div>
@@ -62,7 +58,6 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleInputPassword1"
                     v-model="data.Country"
                   />
                 </div>
@@ -73,7 +68,6 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleCheck1"
                     v-model="data.Region"
                   />
                 </div>
@@ -84,7 +78,6 @@
                   <input
                     type="number"
                     class="form-control"
-                    id="exampleCheck1"
                     v-model="data.Phone"
                   />
                 </div>
@@ -95,7 +88,6 @@
                   <input
                     type="email"
                     class="form-control"
-                    id="exampleCheck1"
                     v-model="data.Email"
                   />
                 </div>
@@ -106,7 +98,6 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleCheck1"
                     v-model="data.Address"
                   />
                 </div>
@@ -117,7 +108,6 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleCheck1"
                     v-model="data.Building"
                   />
                 </div>
@@ -125,12 +115,7 @@
                   <label for="exampleInputPassword1" class="form-label"
                     >City</label
                   >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleCheck1"
-                    v-model="data.City"
-                  />
+                  <input type="text" class="form-control" v-model="data.City" />
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label"
@@ -139,7 +124,6 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleCheck1"
                     v-model="data.State"
                   />
                 </div>
@@ -150,7 +134,6 @@
                   <input
                     type="number"
                     class="form-control"
-                    id="exampleCheck1"
                     v-model="data.Zipcode"
                   />
                 </div>

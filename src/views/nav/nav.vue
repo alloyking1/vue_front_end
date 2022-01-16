@@ -31,13 +31,14 @@
                 >Update Merchant</router-link
               >
             </li>
-            <!-- <li class="nav-item">
-              <router-link to="/merchant/search" class="nav-link"
-                >Search Merchant</router-link
-              >
-            </li> -->
+
             <li class="nav-item">
               <router-link to="/profile" class="nav-link">Profile</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/password/update" class="nav-link"
+                >Update Password</router-link
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="logOut">log out</a>

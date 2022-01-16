@@ -57,7 +57,7 @@ const store = new Vuex.Store({
             if (registerCall) {
                 const merchantData = {
                     Email: data.email,
-                    users_permissions_user: context.state.user.id
+                    users_permissions_user: context.state.user.id  //revisit
                 }
                 await context.dispatch("createNewMerchantAction", { data: merchantData })
 
@@ -97,6 +97,14 @@ const store = new Vuex.Store({
 
         async updateUserProfileByIdAction(context, data) {
             return await profileRepository.updateUserProfileById(data, context.state.user.id)
+        },
+
+        async passwordUpdateRequest(context, data) {
+            return await authRepository.passwordUpdateRequest(data);
+
+        },
+        async passwordResetRequest(context, data) {
+            return await authRepository.passwordResetRequest(data)
         }
     },
 

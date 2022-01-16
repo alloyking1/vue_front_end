@@ -25,30 +25,40 @@
             <form @submit.prevent="validate">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label"
-                  >Email address</label
+                  >Update Email</label
                 >
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
-                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  v-model="email"
+                  v-model="data.email"
                 />
+
+                <label>Update Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                  v-model="data.username"
+                />
+
                 <div id="emailHelp" class="form-text">
                   We'll never share your email with anyone else.
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">
+                Update Profile
+              </button>
 
               <div class="container" v-for="(each, i) in errors" :key="i">
                 {{ each }}
               </div>
             </form>
-            <!-- for ends here -->
           </div>
         </div>
       </div>
       <div class="col-md-4"></div>
+      <div class="row"></div>
     </div>
   </div>
 </template>
@@ -57,7 +67,7 @@
 export default {
   data() {
     return {
-      email: "",
+      data: {},
       errors: [],
       success: false,
     };
@@ -71,9 +81,7 @@ export default {
       }
 
       try {
-        this.$store.dispatch("updateUserProfileByIdAction", {
-          email: this.email,
-        });
+        this.$store.dispatch("updateUserProfileByIdAction", this.data);
         this.success = true;
       } catch (error) {
         this.errors.push(error.message);
