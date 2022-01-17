@@ -3,8 +3,14 @@
     <div class="container">
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-7">
-          <h1 class="text-center">Update Your Merchant Account</h1>
+        <div class="col-md-7 p-5">
+          <div class="p-5 text-center">
+            <h1 class="">Update Your Merchant Account</h1>
+            <p>
+              You can update your merchant details by editing the details of the
+              form and save
+            </p>
+          </div>
           <div class="card shadow">
             <div class="card-body">
               <!-- for starts here -->
@@ -206,6 +212,7 @@ export default {
           data: data,
         });
         this.data = res.data.data.attributes;
+        this.success = true;
       } catch (error) {
         this.errors.push(error.message);
       }

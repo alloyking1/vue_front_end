@@ -9,7 +9,7 @@ const baseURL = `${baseDomain}/api`;
 
 const httpsClient = axios.create({
     baseURL,
-    timeout: 70000, // indicates, 5000ms ie. 5 second
+    timeout: 100000, // indicates, 5000ms ie. 5 second
     headers: {
         "Content-Type": "application/json"
     }

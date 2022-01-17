@@ -21,7 +21,7 @@
                 }
               "
             >
-              Profile updated!
+              Password updated!
             </div>
             <!-- for starts here -->
             <form @submit.prevent="validate">
@@ -81,7 +81,7 @@ export default {
         }
         this.data.code = this.$route.query.code;
         this.$store.dispatch("passwordResetRequest", this.data);
-        this.$route.push("/merchant");
+        this.success = true;
       } else {
         this.errors.push("All fields are required");
       }

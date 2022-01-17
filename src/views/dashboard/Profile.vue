@@ -28,7 +28,7 @@
                   >Update Email</label
                 >
                 <input
-                  type="text"
+                  type="email"
                   class="form-control"
                   aria-describedby="emailHelp"
                   v-model="data.email"
@@ -75,16 +75,16 @@ export default {
 
   methods: {
     validate() {
-      if (this.email === "") {
-        this.errors.push("Email field cannot be empty");
+      if (this.data.email || this.data.username) {
+        try {
+          this.$store.dispatch("updateUserProfileByIdAction", this.data);
+          this.success = true;
+        } catch (error) {
+          this.errors.push(error.message);
+        }
+      } else {
+        this.errors.push("Both fields cannot be empty");
         return false;
-      }
-
-      try {
-        this.$store.dispatch("updateUserProfileByIdAction", this.data);
-        this.success = true;
-      } catch (error) {
-        this.errors.push(error.message);
       }
     },
   },

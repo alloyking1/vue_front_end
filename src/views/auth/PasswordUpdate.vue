@@ -21,7 +21,8 @@
                 }
               "
             >
-              Profile updated!
+              An email with a link to reset your password has been sent to your
+              email
             </div>
             <!-- for starts here -->
             <form @submit.prevent="validate">
