@@ -69,8 +69,9 @@ const store = new Vuex.Store({
 
         async createNewMerchantAction(context, data) {
             const res = await merchantRepository.createNewMerchantApiCall(data)
-            await context.dispatch("updateUserMidAction", { m_id: res.data.data.id })
-            await context.commit("updateMerchantId", res.data.data.id)
+            return res;
+            // await context.dispatch("updateUserMidAction", { m_id: res.data.data.id })
+            // await context.commit("updateMerchantId", res.data.data.id) //should be removed
 
 
         },
