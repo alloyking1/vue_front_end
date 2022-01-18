@@ -57,7 +57,6 @@ export default {
       return this.$store.state.isLoggedIn;
     },
   },
-
   methods: {
     logOut() {
       this.$cookie.delete("login");

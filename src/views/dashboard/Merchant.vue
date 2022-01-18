@@ -191,6 +191,10 @@ export default {
   },
 
   async mounted() {
+    if (this.$store.state.isLoggedIn === false) {
+      location.reload();
+    }
+    this.$forceUpdate();
     const res = await this.$store.dispatch("getMerchantByIdAction");
     this.data = res.data.data.attributes;
   },
