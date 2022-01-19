@@ -187,16 +187,22 @@ export default {
       data: {},
       checked: null,
       success: false,
+      id: "",
     };
   },
 
   async mounted() {
-    if (this.$store.state.isLoggedIn === false) {
-      location.reload();
+    // if (this.$store.state.isLoggedIn === false) {
+    //   location.reload();
+    // }
+    // this.$forceUpdate();
+    this.id = this.$route.params.mid;
+    try {
+      const res = await this.$store.dispatch("getMerchantByIdAction", this.id);
+      this.data = res.data.data.attributes;
+    } catch (err) {
+      console.log(err);
     }
-    this.$forceUpdate();
-    const res = await this.$store.dispatch("getMerchantByIdAction");
-    this.data = res.data.data.attributes;
   },
 
   methods: {
@@ -214,9 +220,11 @@ export default {
       try {
         const res = await this.$store.dispatch("updateMerchantByIdAction", {
           data: data,
+          id: this.id,
         });
         this.data = res.data.data.attributes;
         this.success = true;
+        this.$router.push("/merchant/all");
       } catch (error) {
         this.errors.push(error.message);
       }

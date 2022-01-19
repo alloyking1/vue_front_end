@@ -36,11 +36,11 @@
                 >New Merchant</router-link
               >
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link to="/merchant" class="nav-link"
                 >Update Merchant</router-link
               >
-            </li>
+            </li> -->
 
             <li class="nav-item">
               <router-link to="/profile" class="nav-link">Profile</router-link>

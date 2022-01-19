@@ -22,5 +22,9 @@ export default {
 
     async passwordResetRequest(data) {
         return await httpClient.post('/auth/reset-password', data);
+    },
+
+    async getUserMerchant(userId) {
+        return await httpClient.get(`/user/${userId}/merchant`);
     }
 }

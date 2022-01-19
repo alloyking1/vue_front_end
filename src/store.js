@@ -76,17 +76,21 @@ const store = new Vuex.Store({
 
         },
 
+        async getUserMerchant(context) {
+            return await authRepository.getUserMerchant(context.state.user.id)
+        },
+
         async updateUserMidAction(context, data) {
             return await authRepository.userMidUpdateApiCall(context.state.user.id, data)
 
         },
 
-        async getMerchantByIdAction({ state }) {
-            return await merchantRepository.getMerchantByIdApiCall(state.user.m_id)
+        async getMerchantByIdAction(cxt, data) {
+            return await merchantRepository.getMerchantByIdApiCall(data)
         },
 
         async updateMerchantByIdAction(context, data) {
-            return await merchantRepository.updateMerchantByIdApiCall(context.state.user.m_id, data)
+            return await merchantRepository.updateMerchantByIdApiCall(data.id, { data })
         },
 
         async getAllMerchantAction() {

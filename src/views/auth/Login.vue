@@ -92,7 +92,7 @@ export default {
         const apiCall = await this.$store.dispatch("userLoginAction", data);
         this.$cookie.set("login", apiCall.data.jwt, 1);
         this.$forceUpdate();
-        this.$router.push("/merchant");
+        this.$router.push("/merchant/all");
       } catch (error) {
         this.errors.push("Invalid login details");
       }
