@@ -27,8 +27,13 @@
           </ul>
           <ul class="navbar-nav" v-if="loginCheck">
             <li class="nav-item">
-              <router-link to="/merchant" class="nav-link"
-                >Update Merchant</router-link
+              <router-link to="/merchant/all" class="nav-link"
+                >All Merchants</router-link
+              >
+            </li>
+            <li class="nav-item">
+              <router-link to="/merchant/create" class="nav-link"
+                >New Merchant</router-link
               >
             </li>
 

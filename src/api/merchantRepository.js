@@ -12,7 +12,7 @@ export default {
     },
 
     async updateMerchantByIdApiCall(userMid, data) {
-        return await httpClient.put(`/merchants/${userMid}`, data);
+        return await httpClient.put(`/merchants/${userMid}`, data.data);
     },
 
     async getAllMerchantApiCall() {

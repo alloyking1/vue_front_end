@@ -12,7 +12,9 @@ const router = new VueRouter({
         { path: '/', component: () => import('@/views/dashboard/MerchantSearch.vue') },
         { path: '/login', component: () => import('@/views/auth/Login.vue') },
         { path: '/register', component: () => import('@/views/auth/Register.vue') },
-        { path: '/merchant', component: () => import('@/views/dashboard/Merchant.vue') },
+        { path: '/merchant/update/:mid', component: () => import('@/views/dashboard/Merchant.vue') },
+        { path: '/merchant/all', component: () => import('@/views/dashboard/AuthUserMerchant.vue') },
+        { path: '/merchant/create', component: () => import('@/views/dashboard/CreateMerchant.vue') },
         { path: '/profile', component: () => import('@/views/dashboard/Profile.vue') },
         { path: '/password/update', component: () => import('@/views/auth/PasswordUpdate.vue') },
         { path: '/password/reset', component: () => import('@/views/auth/passwordReset.vue') }
@@ -31,7 +33,7 @@ router.beforeEach((to, from, next) => {
                 next()
 
                 if (to.path == '/login' && isAuthenticated) {
-                    next({ path: '/profile' })
+                    next({ path: '/merchant/all' })
                 }
                 next()
             } else next()
