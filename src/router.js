@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
                 next()
 
                 if (to.path == '/login' && isAuthenticated) {
-                    next({ path: '/profile' })
+                    next({ path: '/merchant/all' })
                 }
                 next()
             } else next()

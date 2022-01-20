@@ -22,7 +22,7 @@ export default {
     };
   },
 
-  mounted() {
+  created() {
     if (this.$cookie.get("login")) {
       this.status = true;
     }

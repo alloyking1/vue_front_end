@@ -118,7 +118,7 @@ export default {
 
       try {
         await this.$store.dispatch("userRegisterAction", form);
-        this.$router.push("/merchant/all");
+        window.location.replace("/merchant/all");
       } catch (error) {
         this.errors.push(error.message);
       }
